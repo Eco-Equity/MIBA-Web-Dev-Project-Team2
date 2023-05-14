@@ -1,0 +1,206 @@
+/* --- CSS variables --- */
+
+:root {
+  /* Colors (stored as rgb values to allow custom transparency)
+      -> Example: rgba(var(--primary-green), 0.5); */
+  --primary-green: 13, 148, 111;
+  --secondary-green: 127, 178, 134;
+  --light-green: 179, 217, 198;
+  --dark-green: 10, 103, 89;
+  --white: 255, 255, 255;
+  --black: 0, 0, 0;
+
+  /* Page border/margins. Apply to elements that 
+     are in contact with page border */
+  --horizontal-padding: 100px;
+  --vertical-padding: 40px;
+}
+
+/* Styles for the entire site */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: rgb(var(--white));
+  min-height: 200vh;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--vertical-padding) var(--horizontal-padding);
+  z-index: 10000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.6s;
+  background: rgba(var(--dark-green), 0.6);
+}
+
+header.sticky {
+  padding: 20px var(--horizontal-padding);
+  background: rgb(var(--dark-green));
+}
+
+header .logo {
+  font-weight: 800;
+  color: rgb(var(--black));
+  text-decoration: none;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.6s;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+}
+
+header nav ul li {
+  margin: 0 30px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  font-size: 1.4em;
+  color: rgb(var(--black));
+  letter-spacing: 2px;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+header.sticky .logo,
+header.sticky nav ul li a {
+  color: rgb(var(--white));
+}
+header.sticky button {
+  background-color: rgb(var(--white));
+  color: rgb(var(--black));
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.login-button,
+.account-button {
+  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: rgb(var(--primary-green));
+  border: none;
+  color: rgb(var(--white));
+  font-size: 1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover,
+.account-button:hover {
+  background-color: rgb(var(--secondary-green));
+}
+
+.overview {
+  position: relative;
+  display: flex;
+  height: 100vh;
+}
+
+.overview img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(160%) contrast(80%);
+}
+
+.slogan {
+  position: absolute;
+  top: 62.5%;
+  padding: var(--horizontal-padding);
+  color: rgb(var(--black));
+  text-align: left;
+}
+
+.slogan h1 {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.slogan p {
+  font-size: 2em;
+  font-weight: 300;
+  margin-bottom: 20px;
+  z-index: 9999;
+}
+
+.container-white {
+  display: flex;
+  align-items: center;
+  background-color: rgb(var(--white));
+  padding: var(--horizontal-padding);
+}
+
+.container-green {
+  display: flex;
+  align-items: center;
+  background-color: rgb(var(--light-green));
+  padding: var(--horizontal-padding);
+}
+
+.container-white .container-text {
+  flex-basis: 50%;
+  padding-left: 50px;
+}
+
+.container-green .container-text {
+  flex-basis: 50%;
+  padding-right: 20px;
+}
+
+.container-white .container-visual {
+  flex-basis: 50%;
+  padding-right: 50px;
+}
+
+.container-green .container-visual {
+  flex-basis: 50%;
+  padding-left: 50px;
+}
+
+.container-white .container-visual img,
+.container-green .container-visual img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 100px;
+}
+
+.container-white .container-text h2,
+.container-green .container-text h2 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.container-white .container-text p,
+.container-green .container-text p {
+  font-size: 32px;
+}
