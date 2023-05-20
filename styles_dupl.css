@@ -1,0 +1,139 @@
+/* :root is used to define CSS variables */
+:root {
+  --primary-green: #0d946f;
+  --secondary-green: #7fb286;
+  --light-green: #b3d9c6;
+  --dark-green: #0a6759;
+  --white: #ffffff;
+  --black: #000000;
+}
+
+/* Styles for the entire site (Body, h*, a, buttons and sections) also when hovering over */
+body {
+  font-family: "Barlow", sans-serif;
+  color: var(--black);
+}
+
+h1 {
+  font-family: "Barlow", serif;
+  color: var(--primary-green);
+}
+
+a {
+  color: var(--primary-green);
+}
+
+a:hover {
+  color: var(--secondary-green);
+}
+
+.button {
+  background-color: var(--primary-green);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--secondary-green);
+  color: var(--black);
+}
+
+.section {
+  background-color: var(--light-green);
+  padding: 20px;
+}
+
+/* Form Styles */
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+/* same style for all input types except submit */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  padding: 10px;
+  border: 1px solid var(--primary-green);
+  background-color: var(--white);
+  color: var(--black);
+  margin-bottom: 10px;
+}
+
+/* submit gets different padding and cursor, does not have border and does not need margin-bottom */
+input[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--primary-green);
+  color: var(--white);
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--secondary-green);
+  color: var(--black);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse; /* So that there is no space between table fields */
+  margin-bottom: 2em;
+}
+
+table,
+th,
+td {
+  border: 1px solid var(--primary-green);
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-green);
+  color: var(--white);
+}
+
+tr:nth-child(even) {
+  background-color: var(--light-green);
+}
+
+tr:hover {
+  background-color: var(--secondary-green);
+}
+
+/* Ensuring the entire website is centered and adjusts to different screen sizes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* Ensuring the images are centered and adjusts to different screen sizes */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
