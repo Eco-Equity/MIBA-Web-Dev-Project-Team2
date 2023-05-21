@@ -1,0 +1,191 @@
+/* --- Styles for the entire landing page ---*/
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: rgb(var(--white));
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(var(--black));
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+img {
+  width: 100%;
+}
+
+/* --- Header --- */
+
+.header {
+  background-color: rgb(var(--white));
+  color: rgb(var(--black));
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.header .grid {
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  align-items: center;
+}
+
+.header ul {
+  display: flex;
+}
+
+.navbar a {
+  color: rgb(var(--black));
+  padding: 10px;
+  margin: 0 5px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  border-bottom: 2px solid rgb(var(--black));
+}
+
+.header .flex {
+  justify-content: space-between;
+}
+
+.header-buttons.flex {
+  justify-content: right;
+}
+
+.header-buttons a {
+  margin-left: 30px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(var(--light-green), 0.5);
+}
+
+#progress-bar {
+  height: 8px;
+  background: rgb(var(--primary-green));
+  width: 0%;
+}
+
+/* --- Overview --- */
+
+.overview {
+  top: 70px;
+  height: 100vh;
+  background: rgb(var(--white));
+  color: rgb(var(--black));
+  position: relative;
+}
+
+.overview .grid {
+  height: calc(100vh - 70px);
+  gap: 100px;
+}
+
+.overview-text h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.overview-text p {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.btn.sign-up-overview {
+  margin: 10px auto;
+  font-size: 1.5rem;
+}
+
+.overview-image img {
+  margin: auto;
+}
+
+/* --- Info Containers --- */
+
+#invest-into-the-future {
+  height: 500px;
+  background: rgba(var(--primary-green), 0.1);
+  color: rgb(var(--black));
+  position: relative;
+}
+
+#easy-to-use-platform {
+  height: 500px;
+  background: rgba(var(--white), 0.05);
+  color: rgb(var(--black));
+  position: relative;
+}
+
+.info-text h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.info-text p {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+/* --- Footer --- */
+
+.footer .grid {
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  align-items: center;
+}
+
+.footer {
+  background-color: rgb(var(--primary-green));
+  color: rgb(var(--white));
+  height: 400px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}

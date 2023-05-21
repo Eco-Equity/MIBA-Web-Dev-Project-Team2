@@ -1,0 +1,64 @@
+/* --- CSS variables --- */
+
+:root {
+    /* Colors (stored as rgb values to allow custom transparency)
+        -> Example: rgba(var(--primary-green), 0.5); */
+    --primary-green: 13, 148, 111;
+    --secondary-green: 127, 178, 134;
+    --light-green: 179, 217, 198;
+    --dark-green: 10, 103, 89;
+    --white: 255, 255, 255;
+    --black: 0, 0, 0;
+  
+    /* Page border/margins. Apply to elements that 
+       are in contact with page border */
+    --horizontal-padding: 100px;
+    --vertical-padding: 20px;
+  }
+
+/* --- Utilities --- */
+
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 0 var(--horizontal-padding);
+  }
+  
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .picture-card {
+    color: rgb(var(--black));
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(var(--black), 0.2);
+    margin: 10px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: rgb(var(--primary-green));
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .btn:hover {
+    transform: scale(0.95);
+    transition: 0.3s ease;
+  }
