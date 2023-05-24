@@ -10,6 +10,7 @@
   --white: 255, 255, 255;
   --black: 0, 0, 0;
 
+
   /* Page border/margins. Apply to elements that 
        are in contact with page border */
   --horizontal-padding: 100px;

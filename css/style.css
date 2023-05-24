@@ -48,6 +48,7 @@ p {
 
 img {
   width: 100%;
+  margin: auto;
 }
 
 /* --- Header --- */
@@ -107,6 +108,10 @@ img {
 .log-in {
   color: rgb(var(--secondary-green));
   font-weight: 900;
+}
+
+.sign-up-header {
+  color: rgb(var(--white));
 }
 
 .progress-container {
@@ -185,10 +190,14 @@ img {
   line-height: 1.2;
 }
 
+.info-image img {
+  margin: auto;
+}
+
 /* --- Footer --- */
 
 .footer .grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   height: 100%;
   align-items: center;
 }
@@ -196,8 +205,38 @@ img {
 .footer {
   background-color: rgb(var(--primary-green));
   color: rgb(var(--white));
-  height: 400px;
+  height: 70px;
   position: relative;
   width: 100%;
   z-index: 1;
+}
+
+.footer a {
+  color: rgb(var(--white));
+  /* padding: 7.5px;
+  margin: 0 5px;
+  font-size: 1.2rem;
+  font-weight: 500; */
+}
+
+.footer img {
+  filter: invert(100%);
+}
+
+.imprint.flex {
+  justify-content: left;
+  align-items: center;
+}
+
+.imprints li {
+  margin-right: 50px;
+}
+
+.socials.flex {
+  justify-content: right;
+  align-items: center;
+}
+
+.socials li {
+  margin-left: 50px;
 }
