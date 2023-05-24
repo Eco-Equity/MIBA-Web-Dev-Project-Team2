@@ -6,10 +6,14 @@
 
 
   <!--Next to do:
-  - "Deactivate" Next button if all fields are not filled
-  - Separate: style, script, body 
-  - Condition for gender selection
-  - Button "Go back to main page" -> add href
+  - Separate: style, script, body
+
+  - Invalid output for next button: for pwd, pwd conf, and gender
+
+  - Preferences tab: Reformat buttons to adjust to screen(!!)
+  - Adjust format & colors to website
+  - Button "Go back to main page" -> add href (john)
+  - FIX PWD CONFIRMATION EYE SHOW/HIDE
   - enter info in database*/--> 
 
 <style>
@@ -76,7 +80,7 @@ button {
 button:hover {
   opacity: 0.8;
 }
-/* Set color of "previous buton"*/
+/* Set color of "previous button"*/
 #prevBtn {
   background-color: #bbbbbb;
 }
@@ -116,7 +120,7 @@ button:hover {
     font-size: 16px;
 }
 
-/* Add a green text color and a checkmark when the requirements are right */
+/* PWD: Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;
 }
@@ -127,7 +131,7 @@ button:hover {
     content: "✔";
 }
 
-/* Add a red text color and an "x" when the requirements are wrong */
+/* PWD: Add a red text color and an "x" when the requirements are wrong */
 .invalid {
     color: red;
 }
@@ -138,6 +142,7 @@ button:hover {
     content: "✖";
 }
 
+/* Organization of inputs */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -154,6 +159,7 @@ button:hover {
 .pwd_input_container {
   position: relative;
 }
+/* Format of eye icon for show/hide pwd */
 #togglePassword {
   position: absolute;
   top: 50%;
@@ -172,6 +178,7 @@ button:hover {
   cursor: pointer;
   color:#04AA6D
 }
+/* Format of button to indicate interests*/
 .preference-button {
   background-color: rgba(197, 191, 191, 0.829);
   }
@@ -206,7 +213,7 @@ button:hover {
       <div class="column">
         <p><label for="psw">Password</label></p>
         <div class="pwd_input_container">
-          <input type="password" id="psw" name="psw" placeholder="Enter your password..." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>    
+          <input type="password" id="psw" name="psw" placeholder="Enter your password..." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>    
           <i class="bi bi-eye-slash" id="togglePassword"></i>
         </div>
         <p id="pwd_error_msg" style="color:red"></p>
@@ -232,7 +239,7 @@ button:hover {
           
         <p><label for="gender">Gender</label></p>
         <select id="gender" name="gender" required class="gender">
-          <option disabled selected value="">Select your gender...</option>
+          <option disabled selected value="0">Select your gender...</option>
           <option value="Female">Female</option>
           <option value="Male">Male</option>
           <option value="Other">Other</option>
@@ -333,7 +340,7 @@ button:hover {
     <h3 style="text-align: center;">Your profile has been created successfully!</h3>
     <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
     <div >
-      <button style="display: block; margin:0 auto" href="">Go back to main page</button><br>
+      <button style="display: block; margin:0 auto"><a href="index.html">Go back to main page</a></button><br>
     </div>  
     </div>
   </div>
@@ -427,10 +434,36 @@ button:hover {
       }
     }
   
+    // Specific checks for pwd, pwd conf, and gender selection
+    for (i = 0; i < y.length; i++) {
+      // If the password is in the current tab...
+      if (y[i].id == "pwd_error_message") {
+        // [NOT WORKING - TO FIX]check if password requirements are met and set the current valid status 
+        if (y[i].textContent=="See password requirements below"){ 
+          valid=false;
+        }
+        else{
+          valid=true;
+        }
+      }
+      // If the password confirmation is in the current tab....
+      if (y[i].id == "psw_conf") {
+        // check if validation of confirmation password is ok and set the current valid status
+        valid = validateConfPassword();
+      }
+      if (y[i].id == "gender") {
+        // [NOT WORKING - TO FIX] if no gender has been selected set valid status to false
+        if (y[i].value==0) valid = false;
+      }
+    }
+
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
       document.getElementsByClassName("step")[currentTab].className += " finish";
     }
+    
+    
+
     return valid; // return the valid status
   }
 
@@ -517,10 +550,9 @@ button:hover {
   }
 
   // Eye icon for showing/hiding pwd
-  const togglePassword = document.querySelector("#togglePassword");
-  const password = document.querySelector("#psw");
-
   togglePassword.addEventListener("click", function () {
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#psw");
     // toggle the type attribute
     const type = password.getAttribute("type") === "password" ? "text" : "password";
     password.setAttribute("type", type);
@@ -530,28 +562,31 @@ button:hover {
   });
 
   // Eye icon for showing/hiding pwd (Confirmation)
-  const togglePasswordConf = document.querySelector("#togglePasswordConf");
-  const passwordconf = document.querySelector("#psw_conf");
-
   togglePasswordConf.addEventListener("click", function () {
+    const togglePasswordConf = document.querySelector("#togglePasswordConf");
+    const passwordconf = document.querySelector("#psw_conf");
     // toggle the type attribute
-    const type = passwordconf.getAttribute("type") === "passwordconf" ? "text" : "passwordconf";
+    const type = passwordconf.getAttribute("type") === "password" ? "text" : "passwordconf";
     passwordconf.setAttribute("type", type);
     
     // toggle the icon
     this.classList.toggle("bi-eye");
   });
 
-
+  
   //Validate password confirmation
-  var pwd_conf = document.getElementById("psw_conf");
-  var pwd_conf_error_message = document.getElementById("pwd_conf_error_msg");
   function validateConfPassword() {
+    var pwd_conf = document.getElementById("psw_conf");
+    var pwd_conf_error_message = document.getElementById("pwd_conf_error_msg");
+    var valid = true;
     if(myPwd.value != pwd_conf.value){
       pwd_conf_error_message.textContent = "Passwords do not match...";
+      valid = false;
     } else {
       pwd_conf_error_message.textContent = "";
+      valid = true;
     }
+    return valid
   }
   
   // Validate age +18
