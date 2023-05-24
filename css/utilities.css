@@ -17,6 +17,59 @@
   --vertical-padding: 20px;
 }
 
+/* --- Styles for the entire page ---*/
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: rgb(var(--white));
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(var(--black));
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+img {
+  width: 100%;
+  margin: auto;
+}
+
 /* --- Utilities --- */
 
 .container {
@@ -62,14 +115,4 @@
 .btn:hover {
   transform: scale(0.95);
   transition: 0.3s ease;
-}
-
-.popup {
-  position: absolute;
-  display: none;
-  background-color: #f9f9f9;
-  color: #000;
-  padding: 10px;
-  border: 1px solid #ccc;
-  z-index: 1;
 }
