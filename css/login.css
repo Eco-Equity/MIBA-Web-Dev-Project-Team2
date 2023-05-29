@@ -1,19 +1,42 @@
-.login .grid {
-    height: calc(100vh - 70px);
-    grid-template-columns: none;
-    background-color: aliceblue;
+.login .container.grid {
+  height: calc(100vh - 70px);
+  grid-template-columns: none;
+  grid-gap: none;
+  justify-content: center;
+  align-items: center;
 }
 
-.auth-box.flex {
-    flex-direction: column;
-    width: 400px;
-    height: 400px;
-    background-color: rgb(var(--white));
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(var(--black), 0.4);
+.auth-box.grid {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(var(--primary-green));
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(var(--black), 0.4);
+  grid-template-columns: none;
+  grid-template-rows: repeat(3, 1fr);
 }
 
+.auth-form.grid {
+  grid-template-columns: none;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+}
 
+.logo {
+  width: 80%;
+  margin: 10px;
+  display: inline-block;
+}
+
+.logo a {
+  font-size: 2rem;
+}
+
+.auth-element {
+    width: 80%;
+    margin: 10px;
+    display: relative;
+}
 
 
 
