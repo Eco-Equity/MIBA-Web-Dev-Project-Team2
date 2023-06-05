@@ -1,44 +1,62 @@
+/* Login */
+
 .login .container.grid {
   height: calc(100vh - 70px);
   grid-template-columns: none;
   grid-gap: none;
   justify-content: center;
   align-items: center;
+  background-color: rgba(var(--black), 0.925);
+}
+
+.logo a {
+  font-size: 2rem;
+  color: rgb(var(--primary-green));
 }
 
 .auth-box.grid {
   width: 400px;
   height: 400px;
-  background-color: rgb(var(--primary-green));
+  background-color: rgba(var(--white), 0.05);
   border-radius: 15px;
-  box-shadow: 0 3px 10px rgba(var(--black), 0.4);
-  grid-template-columns: none;
-  grid-template-rows: repeat(3, 1fr);
+  box-shadow: 0 3px 10px rgba(var(--white), 0.4);
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1.5fr 1.5fr;
+  gap: none;
 }
 
 .auth-form.grid {
-  grid-template-columns: none;
-  grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: none;
 }
 
-.logo {
-  width: 80%;
-  margin: 10px;
-  display: inline-block;
-}
-
-.logo a {
+.auth_element {
+  height: 100%;
+  width: 100%;
   font-size: 2rem;
 }
 
-.auth-element {
-    width: 80%;
-    margin: 10px;
-    display: relative;
+.auth-element input[type="text"] {
+  width: 80%;
+  height: 80%;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border-color: rgb(var(--white));
+  padding: 10px;
 }
 
+.buttons.grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+}
 
+.btn {
+  background-color: rgb(var(--white));
+  width: 80%;
+  height: 70%;
+  margin: none;
+}
 
 /* --- Footer --- */
 
