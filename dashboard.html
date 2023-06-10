@@ -19,6 +19,7 @@
         </div>
         <div class="header-buttons flex">
           <a href="index.html" class="btn">Portfolio</a>
+          <a href="index.html" class="btn">Catalogue</a>
           <a href="index.html" class="btn">Settings</a>
           <a href="index.html" class="btn">Log out</a>
         </div>
@@ -27,42 +28,35 @@
 
     <!-- User Dashboard -->
     <section id="dashboard">
-      <div class="container grid">
+      <div class="dashboard container grid">
         <div class="portfolio">
           <div class="desc">
             <h1>Portfolio</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, sequi ipsam. Aspernatur quis aliquam
-              corrupti qui, nobis pariatur maxime labore vel placeat voluptatibus est eveniet laudantium dolore a, quasi
-              temporibus.
+            <h1 style="color: green;">14.000€</h1>
             </p>
           </div>
           <canvas id="myChart"></canvas>
         </div>
         <div class="assets">
-          <div class="assets-header">
+          <div class="assets-header flex">
             <h1>Assets</h1>
           </div>
           <div class="asset-items grid">
-            <div class="asset-item flex">
-              <span class="company-name">Turtle Company X</span>
-              <span class="company-price">$10.50</span>
+            <!-- Ideally, these are rendered using php/javascript depending on the portfolio perfromance -->
+            <div class="tickers">
+                <div class="flex">AAPL</div>
+                <div class="flex">AMZN</div>
+                <div class="flex">GOOG</div>
             </div>
-            <div class="asset-item flex">
-              <span class="company-name">Tree Company Y</span>
-              <span class="company-price">$15.25</span>
+            <div class="companies">
+                <div class="flex">Apple</div>
+                <div class="flex">Amazon</div>
+                <div class="flex">Google</div>
             </div>
-            <div class="asset-item flex">
-              <span class="company-name">Wind Company Z</span>
-              <span class="company-price">$8.75</span>
-            </div>
-            <div class="asset-item flex">
-              <span class="company-name">Wind Company Z</span>
-              <span class="company-price">$8.75</span>
-            </div>
-            <div class="asset-item flex">
-              <span class="company-name">Wind Company Z</span>
-              <span class="company-price">$8.75</span>
+            <div class="prices">
+                <div class="flex">$123.45</div>
+                <div class="flex">$123.45</div>
+                <div class="flex">$123.45</div>
             </div>
           </div>
         </div>

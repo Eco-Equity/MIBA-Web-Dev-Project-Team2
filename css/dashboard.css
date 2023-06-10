@@ -1,91 +1,89 @@
 /* --- Header --- */
 
 .header {
-    background-color: rgb(var(--white));
-    color: rgb(var(--black));
-    height: 70px;
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  .header .grid {
-    grid-template-columns: 1fr 2fr 5fr;
-    height: 100%;
-    align-items: center;
-  }
-  
-  .header .flex {
-    justify-content: space-between;
-  }
-  
-  .header-buttons.flex {
-    justify-content: right;
-  }
-  
-  .header-buttons a {
-    margin-left: 50px;
-    font-size: 1.2rem;
-    color: rgb(var(--primary-green));
-    font-weight: 900;
-    background-color: rgb(var(--white));
-  }
+  background-color: rgb(var(--white));
+  color: rgb(var(--black));
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
 
-  .header-buttons .btn {
-    padding-right: 0;
-  }
+.header .grid {
+  grid-template-columns: 1fr 2fr 5fr;
+  height: 100%;
+  align-items: center;
+}
 
-  .searchbar input {
-    width: 100%;
-    height: 80%;
-    font-size: 1.2rem;
+.header .flex {
+  justify-content: space-between;
+}
+
+.header-buttons.flex {
+  justify-content: right;
+}
+
+.header-buttons a {
+  margin-left: 50px;
+  font-size: 1.2rem;
+  color: rgb(var(--primary-green));
+  font-weight: 900;
+  background-color: rgb(var(--white));
+}
+
+.header-buttons .btn {
+  padding-right: 0;
+}
+
+.searchbar input {
+  width: 100%;
+  height: 80%;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border-color: rgb(var(--black));
+  padding: 10px;
+}
+
+/* User-Dashboard */
+
+#dashboard {
+  top: 70px;
+  height: calc(100vh - 70px);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard.container.grid {
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 100px;
+}
+
+.desc {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.assets {
+    background-color: rgba(var(--black), 0.7);
     border-radius: 10px;
-    border-color: rgb(var(--black));
+}
+
+.assets h1 {
     padding: 10px;
-  }
+    font-weight: 700;
+    color : rgb(var(--white));
+}
 
-  /* User-Dashboard */
+.assets-header {
+  height: 50px;
+}
 
-  #dashboard {
-    top: 70px;
-    height: calc(100vh - 70px);
-    position: relative;
-  }
+.asset-items.grid{
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 10px;
+}
 
-  #dashboard .grid {
-    height: 100%;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: 100px;
-  }
-
-  .desc {
+.asset-items .flex {
     font-size: 1.2rem;
-    line-height: 1.5;
-  }
-
-  .assets {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    background-color: rgb(var(--light-green));
-    border-radius: 10px;
-  }
-
-  .assets.grid {
-    border-color: rgb(var(--black));
-  }
-
-  .asset-item {
-    width: 100%;
-    padding: 10px;
-    background-color: rgb(var(--dark-green));
-    border-radius: 5px;
-  }
-
-  .company-name {
-    font-weight: 500;
-  }
-  
-  .company-price {
-    font-weight: bold;
-  }
+    color: rgb(var(--white));
+}

@@ -1,4 +1,4 @@
-"strict mode";
+"use strict";
 
 function update_pbar() {
   let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
