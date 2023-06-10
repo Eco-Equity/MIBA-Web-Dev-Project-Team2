@@ -186,17 +186,18 @@ body, html {
 
 
   .overview_portfolio {
+    top: 70px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - 70px);
     overflow: hidden;
   }
   
   .overview_portfolio img {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%; /* W and H not stricly needed, but keeping for now */
     object-fit: cover;
   }
   
