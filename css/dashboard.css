@@ -10,28 +10,9 @@
   }
   
   .header .grid {
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 2fr 5fr;
     height: 100%;
     align-items: center;
-  }
-  
-  .header ul {
-    display: flex;
-  }
-  
-  .navbar a {
-    color: rgb(var(--black));
-    padding: 7.5px;
-    margin: 0 5px;
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
-  
-  .navbar li a:hover {
-    background-color: rgba(var(--light-green), 0.3);
-    color: rgb(var(--primary-green));
-    border: none;
-    border-radius: 10px;
   }
   
   .header .flex {
@@ -43,15 +24,68 @@
   }
   
   .header-buttons a {
-    margin-left: 30px;
+    margin-left: 50px;
     font-size: 1.2rem;
-    font-weight: 500;
-  }
-  
-  .log-out {
-    color: rgb(var(--secondary-green));
+    color: rgb(var(--primary-green));
     font-weight: 900;
+    background-color: rgb(var(--white));
+  }
+
+  .header-buttons .btn {
+    padding-right: 0;
+  }
+
+  .searchbar input {
+    width: 100%;
+    height: 80%;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border-color: rgb(var(--black));
+    padding: 10px;
   }
 
   /* User-Dashboard */
 
+  #dashboard {
+    top: 70px;
+    height: calc(100vh - 70px);
+    position: relative;
+  }
+
+  #dashboard .grid {
+    height: 100%;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 100px;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .assets {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    background-color: rgb(var(--light-green));
+    border-radius: 10px;
+  }
+
+  .assets.grid {
+    border-color: rgb(var(--black));
+  }
+
+  .asset-item {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(var(--dark-green));
+    border-radius: 5px;
+  }
+
+  .company-name {
+    font-weight: 500;
+  }
+  
+  .company-price {
+    font-weight: bold;
+  }

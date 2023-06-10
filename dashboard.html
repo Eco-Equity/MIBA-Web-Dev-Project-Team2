@@ -14,16 +14,62 @@
     <div class="header">
       <div class="container grid">
         <a href="index.html"><h1 class="logo flex">Eco Equity</h1></a>
-        <div>
-            <input type="text">
-
+        <div class="searchbar">
+          <input type="text" name="searchbar" id="search" placeholder="Search for projects here" />
         </div>
         <div class="header-buttons flex">
-          <a href="index.html" class="btn btn-primary">Portfolio</a>
-          <a href="index.html" class="btn btn-primary">Settings</a>
-          <a href="index.html" class="log-out">Log out</a>
-
+          <a href="index.html" class="btn">Portfolio</a>
+          <a href="index.html" class="btn">Settings</a>
+          <a href="index.html" class="btn">Log out</a>
         </div>
       </div>
     </div>
-    <script src="js/index.js"></script>
+
+    <!-- User Dashboard -->
+    <section id="dashboard">
+      <div class="container grid">
+        <div class="portfolio">
+          <div class="desc">
+            <h1>Portfolio</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, sequi ipsam. Aspernatur quis aliquam
+              corrupti qui, nobis pariatur maxime labore vel placeat voluptatibus est eveniet laudantium dolore a, quasi
+              temporibus.
+            </p>
+          </div>
+          <canvas id="myChart"></canvas>
+        </div>
+        <div class="assets">
+          <div class="assets-header">
+            <h1>Assets</h1>
+          </div>
+          <div class="asset-items grid">
+            <div class="asset-item flex">
+              <span class="company-name">Turtle Company X</span>
+              <span class="company-price">$10.50</span>
+            </div>
+            <div class="asset-item flex">
+              <span class="company-name">Tree Company Y</span>
+              <span class="company-price">$15.25</span>
+            </div>
+            <div class="asset-item flex">
+              <span class="company-name">Wind Company Z</span>
+              <span class="company-price">$8.75</span>
+            </div>
+            <div class="asset-item flex">
+              <span class="company-name">Wind Company Z</span>
+              <span class="company-price">$8.75</span>
+            </div>
+            <div class="asset-item flex">
+              <span class="company-name">Wind Company Z</span>
+              <span class="company-price">$8.75</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>
