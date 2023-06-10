@@ -1,4 +1,9 @@
 /* --- Header --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 
 .header {
     background-color: rgb(var(--white));
@@ -186,13 +191,15 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow: hidden;
   }
   
   .overview_portfolio img {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     object-fit: cover;
   }
+  
   
   .container_portfolio_welcome {
     position: relative;
