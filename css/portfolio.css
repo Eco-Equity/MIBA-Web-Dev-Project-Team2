@@ -118,41 +118,43 @@ body, html {
 
 /* --- welcome Containers --- */
 
-  .overview_portfolio {
-    top: 70px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 70px);
-    overflow: hidden;
-  }
-
-  .overview_portfolio .grid {
-  height: calc(100vh - 70px);
-  gap: 100px;
+.top-section {
+  background-image: url("../img/project_background1.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-  .overview_portfolio img {
-    object-fit: cover;
-  }
-  
-  
-  .container_portfolio_welcome {
-    position: relative;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  .textblock_portfolio_welcome {
-    position: absolute;
-    background-color: rgba(var(--primary-green), 0.9);
-    color: white;
-    padding: 40px;
-    font-size: 24px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+.top-section .main_title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 400%;
+  text-align: center;
+  width: 100%; /* Adjust the width as needed */
+  color: rgb(var(--dark-green));
+  align-items: center;
+  margin: 0 auto; /* Center horizontally */
+  border-radius: 30px;
+  opacity: 1;
+}
+
+.top-section .sub_title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 150%;
+  text-align: center;
+  width: 100%; /* Adjust the width as needed */
+  color: rgb(var(--dark-green));
+  margin: 0 auto; /* Center horizontally */
+  border-radius: 30px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
   
   /* --- Info Containers --- */
 

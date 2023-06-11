@@ -72,7 +72,7 @@
 
 
   .top-section {
-    background-image: url("../img/placeholder.png");
+    background-image: url("../img/contact_background2.jpg");
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
@@ -82,38 +82,36 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-
-.top-section .main_title {
-    font-family:'Poppins', sans-serif;
+    
+  }
+  
+  .top-section .main_title {
+    font-family: 'Poppins', sans-serif;
     font-size: 550%;
     text-align: center;
-    width: 1500px;
-    color: rgb(116, 31, 31);
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%; /* Adjust the width as needed */
+    color: rgb(var(--dark-green));
+    align-items: center;
+    margin: 0 auto; /* Center horizontally */
     border-radius: 30px;
     opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.top-section .sub_title {
-    font-family:'Poppins', sans-serif;
+  }
+  
+  .top-section .sub_title {
+    font-family: 'Poppins', sans-serif;
     font-size: 150%;
     text-align: center;
-    width: 1500px;
-    color:rgb(237, 55, 55);
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%; /* Adjust the width as needed */
+    color: rgb(var(--dark-green));
+    margin: 0 auto; /* Center horizontally */
     border-radius: 30px;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
-}
-
+  }
+  
 body {
     color: #333;
-    background: #fcfcfc;
+    background: rgba(var(--primary-green), 0.1);
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
   }
