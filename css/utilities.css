@@ -116,3 +116,31 @@ img {
   transform: scale(0.95);
   transition: 0.3s ease;
 }
+
+.about_grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  justify-items: center;
+  align-items: top;
+}
+
+.team_picture {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.team_member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.about_container {
+  height: auto;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
