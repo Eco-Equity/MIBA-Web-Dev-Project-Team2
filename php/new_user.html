@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type="text/css" href="style.css" />
+    <title>Form register</title>
+</head>
+<body>
+    <form class="form-register" name="reg_user" method="POST" action="user_reg.php">
+        <h4>Form Register</h4>
+        <input class="controls" type="text" name="firstname" id="firstname" placeholder="Write your firstname" required>
+        <input class="controls" type="text" name="lastname" id="lastname" placeholder="Write your lastname" required>
+        <input class="controls" type="text" name="username" id="email" placeholder="Write your username" required>
+        <input class="controls" type="password" name="pass" id="pass" placeholder="Write your password" required>
+        <p><input type="checkbox" name="administrator"> User is an Administrator</p>
+        <input class="botons" type="submit" value="Register">
+        <p><a href="login.html">¿Already have an account?</a></p>
+    </form>
+</body>
+</html>
