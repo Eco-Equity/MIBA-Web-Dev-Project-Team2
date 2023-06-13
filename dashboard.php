@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,23 +46,18 @@
             <h1>Assets</h1>
           </div>
           <div class="asset-items grid">
-            <!-- Ideally, these are rendered using php/javascript depending on the portfolio perfromance -->
-            <div class="tickers">
-                <div class="flex">AAPL</div>
-                <div class="flex">AMZN</div>
-                <div class="flex">GOOG</div>
+            <!-- Results rendered using PHP -->
+            <div class="product">
+            <?php echo $_SESSION['product_html']; ?>
             </div>
-            <div class="companies">
-                <div class="flex">Apple</div>
-                <div class="flex">Amazon</div>
-                <div class="flex">Google</div>
+            <div class="focus">
+              <?php echo $_SESSION['focus_html']; ?>
             </div>
-            <div class="prices">
-                <div class="flex">$123.45</div>
-                <div class="flex">$123.45</div>
-                <div class="flex">$123.45</div>
+            <div class="amount">
+              <?php echo $_SESSION['amount_html']; ?>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

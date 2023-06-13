@@ -15,12 +15,15 @@
           <div class="logo flex">
             <a href="index.html">Eco Equity</a>
           </div>
-          <form class="auth-form grid" action="#">
+          <form class="auth-form grid" method="POST" action="http://localhost:8888/login.php">
             <div class="auth-element flex">
-              <input type="email" name="e-mail" id="email" , placeholder="Email" />
+              <input type="email" name="email" id="email" , placeholder="Email" />
             </div>
             <div class="auth-element flex">
-              <input type="password" name="password" id="pwd" , placeholder="Password" />
+              <input type="password" name="pwd" id="pwd" , placeholder="Password" />
+            </div>
+            <div class="auth-element flex">
+              <input class="botons" type="submit" value="Login">
             </div>
           </form>
           <div class="buttons grid">

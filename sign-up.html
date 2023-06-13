@@ -191,11 +191,9 @@ button:hover {
 </style>
 <body>
 
-<form id="regForm" action="/action_page.php">
+<form id="regForm" method="POST" action="http://localhost:8888/sign-up.php">
   <h1>Registration Form</h1>
-   
- 
-
+  
   <!--First tab: Profile Credentials-->
   <div class="tab">
     <h3>Your Eco-Equity Profile</h3>
@@ -229,7 +227,7 @@ button:hover {
     </div>
                 
   </div>
-  <!--Second tab: Personal information-->
+  <!-- Second tab: Personal information-->
   <div class="tab">
     <h3>Your Personal Information</h3>
     <div class="row">
@@ -308,9 +306,9 @@ button:hover {
   <h3>Your Preferences</h3>
   <p>Select the project focus that interests you</p>
   <div id="preferences">
-    <button class="preference-button" value="Green living">Green living</button>
+    <button class="preference-button" value="Green living">Green Living</button>
     <button class="preference-button" value="Agriculture">Agriculture</button>
-    <button class="preference-button" value="Renewable energy">Renewable energy</button>
+    <button class="preference-button" value="Renewable Energy">Renewable Energy</button>
     <button class="preference-button" value="High-tech">High-tech</button>
     <button class="preference-button" value="Recycling">Recycling</button>
   </div>

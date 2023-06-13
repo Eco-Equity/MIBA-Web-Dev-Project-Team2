@@ -5,11 +5,10 @@ include('db.php');
 // Getting the data from the form
 $usrname = $_POST['usrname'];
 $psw = $_POST['psw'];
-$psw_conf = $_POST['psw_conf'];
 $first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
 $gender = $_POST['gender'];
 $nationality = $_POST['nationality'];
-$last_name = $_POST['last_name'];
 $bday = $_POST['bday'];
 $email = $_POST['email'];
 $street = $_POST['street'];

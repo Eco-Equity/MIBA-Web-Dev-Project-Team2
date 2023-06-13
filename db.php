@@ -7,7 +7,7 @@ $conn = mysqli_connect(  // connect to the database
                          // In our case it is the machine where the php pages are located.
   'root',                // user with permission to access the database
   'root',                // password of this user
-  'tasks'                // database name
+  'test'                // database name
 ) or die(mysqli_error($mysqli));  
                          // End of program if conex not successfull and output
                          // the error message
