@@ -100,6 +100,7 @@
 .btn.sign-up-overview {
   margin: 10px auto;
   font-size: 1.5rem;
+  color: rgb(var(--white));
 }
 
 .overview-image img {
