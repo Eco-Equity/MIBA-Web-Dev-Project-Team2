@@ -15,22 +15,26 @@
           <div class="logo flex">
             <a href="index.html">Eco Equity</a>
           </div>
-          <form class="auth-form grid" method="POST" action="http://localhost:8888/login.php">
+          <form
+            id="login-form"
+            class="auth-form grid"
+            method="POST"
+            action="http://localhost:8888/login.php"
+          >
             <div class="auth-element flex">
               <input type="email" name="email" id="email" , placeholder="Email" />
             </div>
             <div class="auth-element flex">
               <input type="password" name="pwd" id="pwd" , placeholder="Password" />
             </div>
-            <div class="buttons grid">
-              <div class="btn log-in flex">
-                <button type="submit">Log in</button>
-              </div>
-              
           </form>
-          <div class="btn sign-up flex">
-            <a href="sign-up.html">Open an account</a>
-          </div>
+          <div class="buttons grid">
+            <div class="btn log-in flex">
+              <button type="submit" form="login-form" value="Update">Log in</button>
+            </div>
+            <div class="btn sign-up flex">
+              <a href="sign-up.html">Open an account</a>
+            </div>
           </div>
         </div>
       </div>

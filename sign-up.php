@@ -2,46 +2,802 @@
 // Call to the database connection
 include('db.php');
 
-// Getting the data from the form
-$usrname = $_POST['usrname'];
-$psw = $_POST['psw'];
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$gender = $_POST['gender'];
-$nationality = $_POST['nationality'];
-$bday = $_POST['bday'];
-$email = $_POST['email'];
-$street = $_POST['street'];
-$address_other = $_POST['address_other'];
-$zipcode = $_POST['zipcode'];
-$phone = $_POST['phone'];
-$street_no = $_POST['street_no'];
-$city = $_POST['city'];
-$country = $_POST['country'];
-$preferences = $_POST['preferences'];
-
-// Check if username is already taken
-$query = "SELECT username FROM users WHERE username = '$usrname'";
-$result = mysqli_query($conn, $query);
-
-if(mysqli_num_rows($result) > 0){
-    // Username is taken, redirect back to registration page
-    header('Location: registration_page.php');
-    exit();
-}
-
-// Add user to the database
-$query = "INSERT INTO users (username, password, first_name, last_name, gender, nationality, dob, email, street, additional_address_info, zipcode, phone, street_no, city, country, preferences) 
-VALUES ('$usrname', '$psw', '$first_name', '$last_name', '$gender', '$nationality', '$bday', '$email', '$street', '$address_other', '$zipcode', '$phone', '$street_no', '$city', '$country', '$preferences')";
-
-$result = mysqli_query($conn, $query);
-
-if(!$result){
-    // Query failed, redirect to error page
-    header('Location: query_error.html');
-    exit();
-}
-
-// User created successfully
-header('Location: welcome.html');
 ?>
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+
+  <!--Next to do:
+  - Separate: style, script, body
+
+  - Invalid output for next button: for pwd, pwd conf, and gender
+
+  - Preferences tab: Reformat buttons to adjust to screen(!!)
+  - Adjust format & colors to website
+  - Button "Go back to main page" -> add href (john)
+  - FIX PWD CONFIRMATION EYE SHOW/HIDE
+  - enter info in database*/--> 
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+  
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+select {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+/* Mark select boxes that gets an error on validation: */
+
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Define "Next" button format*/
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+/* Make button change color when hovering */
+button:hover {
+  opacity: 0.8;
+}
+/* Set color of "previous button"*/
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+ /* The message box is shown when the user clicks on the password field */
+ #message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#message p {
+    padding: 0px 35px;
+    font-size: 16px;
+}
+
+/* PWD: Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+
+/* PWD: Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
+
+/* Organization of inputs */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 50%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.column-tac {
+  padding: 0 10px;
+}
+.pwd_input_container {
+  position: relative;
+}
+/* Format of eye icon for show/hide pwd */
+#togglePassword {
+  position: absolute;
+  top: 50%;
+  font-size: 120%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+  color:#04AA6D
+}
+#togglePasswordConf {
+  position: absolute;
+  top: 50%;
+  font-size: 120%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+  color:#04AA6D
+}
+/* Format of button to indicate interests*/
+.preference-button {
+  background-color: rgba(197, 191, 191, 0.829);
+  }
+
+.preference-button.selected {
+  background-color: #04AA6D;
+}
+
+
+</style>
+<body>
+
+<form id="regForm" method="POST" action="http://localhost:8888/sign-up.php">
+  <h1>Registration Form</h1>
+  
+  <!--First tab: Profile Credentials-->
+  <div class="tab">
+    <h3>Your Eco-Equity Profile</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="usrname">Username</label></p>
+        <input type="text" id="usrname" name="usrname" placeholder="Choose your username..." required>
+        <?php echo $_SESSION['product_html']; ?>
+      </div>
+      <div class="column">
+        <br><br>
+        <p id="user_msg" style="color: red;"> #back-end: check username availability and return result here</p> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <p><label for="psw">Password</label></p>
+        <div class="pwd_input_container">
+          <input type="password" id="psw" name="psw" placeholder="Enter your password..." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>    
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
+        <p id="pwd_error_msg" style="color:red"></p>
+      </div>
+      <div class="column">
+        <p><label for="psw_conf">Password confirmation</label></p>
+        <div class="pwd_input_container">
+          <input type="password" id="psw_conf" name="psw_conf" placeholder="Repeat your password..." oninput="validateConfPassword()" required>
+          <i class="bi bi-eye-slash" id="togglePasswordConf"></i>
+        </div>
+        <p id="pwd_conf_error_msg" style="color:red"></p> <br><br>
+      </div>
+    </div>
+                
+  </div>
+  <!-- Second tab: Personal information-->
+  <div class="tab">
+    <h3>Your Personal Information</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="first_name">First name</label></p>
+        <input type="text" id="first_name" name="first_name" placeholder="Your first name..."required>
+          
+        <p><label for="gender">Gender</label></p>
+        <select id="gender" name="gender" required class="gender">
+          <option disabled selected value="0">Select your gender...</option>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+          <option value="Other">Other</option>
+        </select>
+        
+        <p><label for="nationality">Nationality</label></p>
+        <div class="autocomplete" style="width:100%;">
+          <input id="nationality" type="text" name="nationality" placeholder="Type your nationality..." required>
+        </div>
+
+      </div>
+      <div class="column">
+        <p><label for="last_name">Last name(s)</label></p>
+        <input type="text" id="last_name" name="last_name" placeholder="Your last name..."required>
+        
+        <p><label for="bday">Date of birth</label></p>
+        <input name="bday" id="bday" type="date" required onchange="validateAge()"/>
+        <p id="age_error_msg" style="color:red"></p>
+        
+      </div>
+    </div>
+  </div>
+  <!--Third tab: Contact information-->
+  <div class="tab">
+    <h3>Your Contact Information</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="email">E-mail</label></p>
+        <input type="text" id="email" name="email" placeholder="Your e-mail address..." required onchange="ValidateEmail()">
+        <p id="email_error_msg" style="color:red"></p>
+
+        <p><label for="street">Street</label></p>
+        <input type="text" id="street" name="street" placeholder="Your street name..." required>
+
+        <p><label for="address_other">Complementary address information</label></p>
+        <input type="text" id="address_other" name="address_other" placeholder="Floor, door, other...">
+
+        <p><label for="zipcode">Zip Code</label></p>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Your zipcode..." required onchange="ValidateZipcode()">
+        <p id="zipcode_error_msg" style="color:red"></p>
+      </div>
+      <div class="column">
+        <p><label for="phone">Phone number</label></p>
+        <input type="text" id="phone" name="phone" placeholder="Your phone number..." required onchange="ValidatePhone()">
+        <p id="phone_error_msg" style="color:red"></p>
+  
+        <p><label for="street_no">Street Number</label></p>
+        <input type="text" id="street_no" name="street_no" placeholder="Your street number..." required onchange="ValidateStreetNo()">
+        <p id="street_no_error_msg" style="color:red"></p>
+
+        <p><label for="city">City</label></p>
+        <input type="text" id="city" name="city" placeholder="Your city..." required onchange="ValidateCity()">
+        <p id="city_error_msg" style="color:red"></p>
+
+        <p><label for="country">Country</label></p>
+        <div class="autocomplete" style="width:100%">
+          <input id="country" type="text" name="country" placeholder="Type country name..." required>
+        </div> <br>
+      </div>
+
+  </div>
+  </div>
+  
+<!--Fourth tab: Preferences -->
+<div class="tab">
+  <h3>Your Preferences</h3>
+  <p>Select the project focus that interests you</p>
+  <div id="preferences">
+    <button class="preference-button" value="Green living">Green Living</button>
+    <button class="preference-button" value="Agriculture">Agriculture</button>
+    <button class="preference-button" value="Renewable Energy">Renewable Energy</button>
+    <button class="preference-button" value="High-tech">High-tech</button>
+    <button class="preference-button" value="Recycling">Recycling</button>
+  </div>
+  <p>Select the type of investments you are interested in</p>
+  <div id="preferences">
+    <button class="preference-button" value="100">Less than 100€</button>
+    <button class="preference-button" value="100-500">100€-500€</button>
+    <button class="preference-button" value="500-1000">500€-1'000€</button>
+    <button class="preference-button" value="+1000">More than 1'000€</button>
+  </div> <br> <br>
+  <div class="row">
+    <div class="column-tac">
+      <input id="checkbox" type="checkbox" class="tacbox" required>
+    </div>
+    <div class="column-tac">
+      <label for="checkbox">
+        I agree to <a href="#" id="termsLink">Eco-Equity's Terms and Conditions</a>.
+      </label>
+    </div>
+  </div>
+</div>
+  <!-- Registration confirmation message  -->
+  <div class="tab">
+    <br>
+    <h3 style="text-align: center;">Your profile has been created successfully!</h3>
+    <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
+    <div >
+      <button style="display: block; margin:0 auto"><a href="index.html">Go back to main page</a></button><br>
+    </div>  
+    </div>
+  </div>
+
+    
+  <!-- "Previous" and "Next" buttons -->
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+  <!-- Circles which indicate the steps/tabs of the form: -->
+  <div style="text-align:center;margin-top:5px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+
+  <div id="message">
+    <h4>Your password must contain the following:</h4>
+    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+    <p id="number" class="invalid">A <b>number</b></p>
+    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+  </div>
+</form>
+
+<script>
+  // Visualisation of different tabs
+  var currentTab = 0; // Current tab is set to be the first tab (0)
+  showTab(currentTab); // Display the current tab
+
+  function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 2)) {
+      document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+      document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    if (n == (x.length - 1)) {
+      document.getElementById("prevBtn").style.display = "none";
+      document.getElementById("nextBtn").style.display = "none";
+    } 
+    //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
+  }
+
+  function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateForm()) return false;
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+    // if you have reached the end of the form...
+    if (currentTab >= x.length) {
+      // ... the form gets submitted:
+      document.getElementById("regForm").submit();
+      return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+  }
+
+  function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, z, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    z = x[currentTab].getElementsByTagName("option");  
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+      // If a field is empty...
+      if (y[i].value == "") {
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false
+        valid = false;
+      }
+    }
+  
+    // Specific checks for pwd, pwd conf, and gender selection
+    for (i = 0; i < y.length; i++) {
+      // If the password is in the current tab...
+      if (y[i].id == "pwd_error_message") {
+        // [NOT WORKING - TO FIX]check if password requirements are met and set the current valid status 
+        if (y[i].textContent=="See password requirements below"){ 
+          valid=false;
+        }
+        else{
+          valid=true;
+        }
+      }
+      // If the password confirmation is in the current tab....
+      if (y[i].id == "psw_conf") {
+        // check if validation of confirmation password is ok and set the current valid status
+        valid = validateConfPassword();
+      }
+      if (y[i].id == "gender") {
+        // [NOT WORKING - TO FIX] if no gender has been selected set valid status to false
+        if (y[i].value==0) valid = false;
+      }
+    }
+
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    
+    
+
+    return valid; // return the valid status
+  }
+
+  function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+  }
+  var myPwd = document.getElementById("psw");
+  var letter = document.getElementById("letter");
+  var capital = document.getElementById("capital");
+  var number = document.getElementById("number");
+  var length = document.getElementById("length");
+
+  var pwd_error_message = document.getElementById("pwd_error_msg");
+
+  // When the user clicks on the password field, show the message box
+  myPwd.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+  }
+
+  // When the user clicks outside of the password field, hide the message box
+  myPwd.onblur = function() {
+  document.getElementById("message").style.display = "none";
+  }
+
+  // When the user starts to type something inside the password field
+  myPwd.onkeyup = function() {
+    // Check all requirements are met
+    var allValid = true;
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if(myPwd.value.match(lowerCaseLetters)) {  
+        letter.classList.remove("invalid");
+        letter.classList.add("valid");
+    } else {
+        letter.classList.remove("valid");
+        letter.classList.add("invalid");
+        allValid=false;
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if(myPwd.value.match(upperCaseLetters)) {  
+        capital.classList.remove("invalid");
+        capital.classList.add("valid");
+    } else {
+        capital.classList.remove("valid");
+        capital.classList.add("invalid");
+        allValid=false;
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if(myPwd.value.match(numbers)) {  
+        number.classList.remove("invalid");
+        number.classList.add("valid");
+    } else {
+        number.classList.remove("valid");
+        number.classList.add("invalid");
+        allValid=false;
+    }
+
+    // Validate length
+    if(myPwd.value.length >= 8) {
+        length.classList.remove("invalid");
+        length.classList.add("valid");
+    } else {
+        length.classList.remove("valid");
+        length.classList.add("invalid");
+        allValid=false;
+    }
+    // Show pwd error message if requirements are not met
+    if(allValid==true){
+      pwd_error_message.textContent=""
+    }
+    else{
+      pwd_error_message.textContent="See password requirements below"
+    }
+  }
+
+  // Eye icon for showing/hiding pwd
+  togglePassword.addEventListener("click", function () {
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#psw");
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    
+    // toggle the icon
+    this.classList.toggle("bi-eye");
+  });
+
+  // Eye icon for showing/hiding pwd (Confirmation)
+  togglePasswordConf.addEventListener("click", function () {
+    const togglePasswordConf = document.querySelector("#togglePasswordConf");
+    const passwordconf = document.querySelector("#psw_conf");
+    // toggle the type attribute
+    const type = passwordconf.getAttribute("type") === "password" ? "text" : "passwordconf";
+    passwordconf.setAttribute("type", type);
+    
+    // toggle the icon
+    this.classList.toggle("bi-eye");
+  });
+
+  
+  //Validate password confirmation
+  function validateConfPassword() {
+    var pwd_conf = document.getElementById("psw_conf");
+    var pwd_conf_error_message = document.getElementById("pwd_conf_error_msg");
+    var valid = true;
+    if(myPwd.value != pwd_conf.value){
+      pwd_conf_error_message.textContent = "Passwords do not match...";
+      valid = false;
+    } else {
+      pwd_conf_error_message.textContent = "";
+      valid = true;
+    }
+    return valid
+  }
+  
+  // Validate age +18
+  function validateAge() {
+    var bday = new Date(document.getElementById("bday").value);
+    var age_error_msg = document.getElementById("age_error_msg");
+    var bday_year = bday.getFullYear();
+    var today = new Date();
+    var today_year = today.getFullYear();
+    var age = today_year - bday_year;
+    if (age >= 18) {
+      age_error_msg.textContent = "";
+    } else {
+      age_error_msg.textContent = "You must be +18 years old to sign up!";
+    }
+  }
+
+ //Nationality selection 
+  function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode.removeChild(x[i]);
+        }
+      }
+    }
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+  }
+
+  /*An array containing all the country names in the world:*/
+  var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+
+  /*initiate the autocomplete function on the "nationality" and "country" elements, and pass along the countries array as possible autocomplete values:*/
+  autocomplete(document.getElementById("nationality"), countries);
+  autocomplete(document.getElementById("country"), countries);
+
+  // Validate email address
+  function ValidateEmail(){
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var email = document.getElementById("email");
+    var email_error_message = document.getElementById("email_error_msg");
+    
+    if(email.value.match(mailformat)){
+      email_error_message.textContent="";
+    }
+    else{
+      email_error_message.textContent="Please enter a valid email address!";
+    }
+  }
+
+    // Validate phone number
+    function ValidatePhone(){
+      var phone = document.getElementById("phone");
+      var phone_error_message = document.getElementById("phone_error_msg");
+      //only accept numbers (no other character allowed)
+      var phoneno = /^\d+$/;
+      if(phone.value.match(phoneno)){
+        phone_error_message.textContent="";
+      }
+      else{
+        phone_error_message.textContent="Please enter a valid phone number! (only digits)";
+      }
+  }
+
+    //Validate Zipcode
+    function ValidateZipcode() {
+      var zipcode = document.getElementById("zipcode");
+      var zipcode_error_message = document.getElementById("zipcode_error_msg");
+      //only accept numbers, letters and "-" (no other character allowed)
+      var zipchar = /^[\dA-Za-z-]+$/;
+      if (zipcode.value.match(zipchar)) {
+        zipcode_error_message.textContent="";
+      } else {
+        zipcode_error_message.textContent="Please enter a valid zip code!";
+        
+      }
+    }
+
+    //Validate address number
+      function ValidateStreetNo() {
+        var street_no = document.getElementById("street_no");
+        var street_no_error_message = document.getElementById("street_no_error_msg");
+        //only accept numbers, letters and "-" (no other character allowed)
+        var nochar = /^[\dA-Za-z-]+$/;
+        if (street_no.value.match(nochar)) {
+          street_no_error_message.textContent="";
+        } else {
+          street_no_error_message.textContent="Please enter a valid street number!";
+          
+        }
+      }
+
+    //Validate city
+    function ValidateCity() {
+        var city = document.getElementById("city");
+        var city_error_message = document.getElementById("city_error_msg");
+        //only accept letters and "-" (no other character allowed)
+        var citychar = /^[A-Za-z-]+$/;
+        if (city.value.match(citychar)) {
+          city_error_message.textContent="";
+        } else {
+          city_error_message.textContent="Please enter just the city name!";
+        }
+    }
+    // Get all the preference buttons
+    const preferenceButtons = document.querySelectorAll('.preference-button');
+
+    // Add click event listener to each button
+    preferenceButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Toggle the 'selected' class for the clicked button
+        button.classList.toggle('selected');
+      });
+    });
+
+    // Terms and Conditions text
+    document.getElementById("termsLink").addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent the default behavior of the anchor tag
+      var termsText = "Terms and Conditions of Eco-Equity: These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and Eco-Equity, concerning your access to and use of Eco-Equity's website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions. If you do not agree with all of these Terms and Conditions, then you are expressly prohibited from using the Site and you must discontinue use immediately. Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms and Conditions at any time and for any reason."; 
+      alert(termsText);
+    });
+</script>
+
+</body>
+</html>
