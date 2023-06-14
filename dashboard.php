@@ -46,16 +46,20 @@
             <h1>Assets</h1>
           </div>
           <div class="asset-items grid">
+
             <!-- Results rendered using PHP -->
             <div class="product">
-            <?php echo $_SESSION['product_html']; ?>
+              <?php echo $_SESSION['product_html']; ?>
             </div>
+
             <div class="focus">
               <?php echo $_SESSION['focus_html']; ?>
             </div>
+
             <div class="amount">
               <?php echo $_SESSION['amount_html']; ?>
             </div>
+            
           </div>
         </div>
         </div>
