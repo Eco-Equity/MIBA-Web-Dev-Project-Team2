@@ -16,10 +16,8 @@ include('db.php');
   - Invalid output for next button: for pwd, pwd conf, and gender
 
   - Preferences tab: Reformat buttons to adjust to screen(!!)
-  - Adjust format & colors to website
-  - Button "Go back to main page" -> add href (john)
   - FIX PWD CONFIRMATION EYE SHOW/HIDE
-  - enter info in database*/--> 
+  */--> 
 
 <style>
 * {
@@ -34,7 +32,7 @@ body {
 #regForm {
   background-color: #ffffff;
   margin: 100px auto;
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   padding: 40px;
   width: 70%;
   min-width: 300px;
@@ -46,9 +44,10 @@ h1 {
 
 input {
   padding: 10px;
+  border-radius: 10px;
   width: 100%;
   font-size: 17px;
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   border: 1px solid #aaaaaa;
 }
 
@@ -61,7 +60,7 @@ select {
   padding: 10px;
   width: 100%;
   font-size: 17px;
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   border: 1px solid #aaaaaa;
 }
 /* Mark select boxes that gets an error on validation: */
@@ -72,12 +71,14 @@ input.invalid {
 
 /* Define "Next" button format*/
 button {
-  background-color: #04AA6D;
+  background-color: rgb(127, 178, 134);
+  border-radius: 10px;
+  width: 150px;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
   font-size: 17px;
-  font-family: Raleway;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
 }
 
@@ -211,8 +212,6 @@ button:hover {
         ?>
       </div>
       <div class="column">
-        <br><br>
-        <p id="user_msg" style="color: red;"> #back-end: check username availability and return result here</p> 
       </div>
     </div>
     <div class="row">
@@ -316,15 +315,15 @@ button:hover {
   <div id="preferences">
     <button class="preference-button" value="Green living">Green Living</button>
     <button class="preference-button" value="Agriculture">Agriculture</button>
-    <button class="preference-button" value="Renewable Energy">Renewable Energy</button>
+    <button class="preference-button" value="Renewable Energy">Renewables</button>
     <button class="preference-button" value="High-tech">High-tech</button>
     <button class="preference-button" value="Recycling">Recycling</button>
   </div>
   <p>Select the type of investments you are interested in</p>
   <div id="preferences">
     <button class="preference-button" value="100">Less than 100€</button>
-    <button class="preference-button" value="100-500">100€-500€</button>
-    <button class="preference-button" value="500-1000">500€-1'000€</button>
+    <button class="preference-button" value="100-500">Between 100€-500€</button>
+    <button class="preference-button" value="500-1000">Between 500€-1'000€</button>
     <button class="preference-button" value="+1000">More than 1'000€</button>
   </div> <br> <br>
   <div class="row">
@@ -344,7 +343,7 @@ button:hover {
     <h3 style="text-align: center;">Your profile has been created successfully!</h3>
     <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
     <div >
-      <button style="display: block; margin:0 auto"><a href="index.html">Go back to main page</a></button><br>
+      <button style="display: block; margin:0 auto;"><a href="index.html" style=" text-decoration: none; color: white;">Go back to main page</a></button><br>
     </div>  
     </div>
   </div>
@@ -403,6 +402,37 @@ button:hover {
   }
 
   function nextPrev(n) {
+  var x = document.getElementsByClassName("tab");
+  // If we are in the first tab, verify username/pwd
+  if (n == 1 && currentTab === 0) {
+    // Check username availability using AJAX
+    var username = document.getElementById("usrname").value;
+
+    // Perform an AJAX request to check availability
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "username_availability.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var response = xhr.responseText;
+        // Process the response and take appropriate action
+        if (response === "available") {
+          // Username is available, proceed to the next tab
+          goToNextTab();
+        } else {
+          // Username is already taken, show an error message or take appropriate action
+          alert("Username is already taken. Please choose a different one.");
+        }
+      }
+    };
+    xhr.send("username=" + encodeURIComponent(username));
+  } else {
+    // Proceed to the next tab without checking availability
+    goToNextTab(n);
+  }
+}
+
+  function goToNextTab(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
@@ -419,7 +449,9 @@ button:hover {
     }
     // Otherwise, display the correct tab:
     showTab(currentTab);
+
   }
+  
 
   function validateForm() {
     // This function deals with validation of the form fields
@@ -436,6 +468,15 @@ button:hover {
         // and set the current valid status to false
         valid = false;
       }
+      // Check if the terms and conditions checkbox is checked
+      if(currentTab == 3){
+        var checkbox = document.querySelector(".tacbox");
+        if (!checkbox.checked) {
+          valid = false;
+          checkbox.classList.add("invalid");
+        }
+      }
+    return valid
     }
   
     // Specific checks for pwd, pwd conf, and gender selection

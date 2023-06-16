@@ -20,16 +20,6 @@ $city = $_POST['city'];
 $country = $_POST['country'];
 $preferences = $_POST['preferences'];
 
-// Check if username is already taken
-$query = "SELECT username FROM users WHERE username = '$usrname'";
-$result = mysqli_query($conn, $query);
-
-if(mysqli_num_rows($result) > 0){
-    // Username is taken, redirect back to registration page
-    header('Location: registration_page.php');
-    exit();
-}
-
 // Add user to the database
 $query = "INSERT INTO users (username, password, first_name, last_name, gender, nationality, dob, email, street, additional_address_info, zipcode, phone, street_no, city, country, preferences) 
 VALUES ('$usrname', '$psw', '$first_name', '$last_name', '$gender', '$nationality', '$bday', '$email', '$street', '$address_other', '$zipcode', '$phone', '$street_no', '$city', '$country', '$preferences')";

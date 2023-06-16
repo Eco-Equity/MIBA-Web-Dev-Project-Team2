@@ -1,0 +1,175 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #f1f1f1;
+    
+  }
+  
+  #regForm {
+    background-color: #ffffff;
+    margin: 100px auto;
+    font-family: "Poppins", sans-serif;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+  }
+  
+  h1 {
+    text-align: center;  
+  }
+  
+  input {
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  select {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #aaaaaa;
+  }
+  /* Mark select boxes that gets an error on validation: */
+  
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Define "Next" button format*/
+  button {
+    background-color: rgb(127, 178, 134);
+    border-radius: 10px;
+    width: 150px;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+  }
+  
+  /* Make button change color when hovering */
+  button:hover {
+    opacity: 0.8;
+  }
+  /* Set color of "previous button"*/
+  #prevBtn {
+    background-color: #bbbbbb;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  }
+   /* The message box is shown when the user clicks on the password field */
+   #message {
+      display:none;
+      background: #f1f1f1;
+      color: #000;
+      position: relative;
+      padding: 10px;
+      margin-top: 5px;
+  }
+  
+  #message p {
+      padding: 0px 35px;
+      font-size: 16px;
+  }
+  
+  /* PWD: Add a green text color and a checkmark when the requirements are right */
+  .valid {
+      color: green;
+  }
+  
+  .valid:before {
+      position: relative;
+      left: -35px;
+      content: "✔";
+  }
+  
+  /* PWD: Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+      color: red;
+  }
+  
+  .invalid:before {
+      position: relative;
+      left: -35px;
+      content: "✖";
+  }
+  
+  /* Organization of inputs */
+  .row {
+      display: flex;
+      flex-wrap: wrap;
+  }
+  
+  .column {
+      flex: 50%;
+      padding: 0 10px;
+      box-sizing: border-box;
+  }
+  .column-tac {
+    padding: 0 10px;
+  }
+  .pwd_input_container {
+    position: relative;
+  }
+  /* Format of eye icon for show/hide pwd */
+  #togglePassword {
+    position: absolute;
+    top: 50%;
+    font-size: 120%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+    color:#04AA6D
+  }
+  #togglePasswordConf {
+    position: absolute;
+    top: 50%;
+    font-size: 120%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+    color:#04AA6D
+  }
+  /* Format of button to indicate interests*/
+  .preference-button {
+    background-color: rgba(197, 191, 191, 0.829);
+    }
+  
+  .preference-button.selected {
+    background-color: rgb(127, 178, 134);
+  }
+  
+  
+  

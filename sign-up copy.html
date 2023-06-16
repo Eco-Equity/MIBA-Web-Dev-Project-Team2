@@ -1,0 +1,203 @@
+<?php
+// Call to the database connection
+include('db.php');
+?>
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="sign-up.css">
+
+  <!--Next to do:
+  - Separate: style, script, body
+
+  - Invalid output for next button: for pwd, pwd conf, and gender
+
+  - Preferences tab: Reformat buttons to adjust to screen(!!)
+  - FIX PWD CONFIRMATION EYE SHOW/HIDE
+  */--> 
+
+
+<body>
+
+<form id="regForm" method="POST" action="http://localhost:8888/sign-up.php">
+  <h1>Registration Form</h1>
+  
+  <!--First tab: Profile Credentials-->
+  <div class="tab">
+    <h3>Your Eco-Equity Profile</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="usrname">Username</label></p>
+        <input type="text" id="usrname" name="usrname" placeholder="Choose your username..." required>
+        <php? 
+          $_SESSION['usrname'] = $_POST["usrname"]; 
+        ?>
+      </div>
+      <div class="column">
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <p><label for="psw">Password</label></p>
+        <div class="pwd_input_container">
+          <input type="password" id="psw" name="psw" placeholder="Enter your password..." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>    
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
+        <p id="pwd_error_msg" style="color:red"></p>
+      </div>
+      <div class="column">
+        <p><label for="psw_conf">Password confirmation</label></p>
+        <div class="pwd_input_container">
+          <input type="password" id="psw_conf" name="psw_conf" placeholder="Repeat your password..." oninput="validateConfPassword()" required>
+          <i class="bi bi-eye-slash" id="togglePasswordConf"></i>
+        </div>
+        <p id="pwd_conf_error_msg" style="color:red"></p> <br><br>
+      </div>
+    </div>
+                
+  </div>
+  <!-- Second tab: Personal information-->
+  <div class="tab">
+    <h3>Your Personal Information</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="first_name">First name</label></p>
+        <input type="text" id="first_name" name="first_name" placeholder="Your first name..."required>
+          
+        <p><label for="gender">Gender</label></p>
+        <select id="gender" name="gender" required class="gender">
+          <option disabled selected value="0">Select your gender...</option>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+          <option value="Other">Other</option>
+        </select>
+        
+        <p><label for="nationality">Nationality</label></p>
+        <div class="autocomplete" style="width:100%;">
+          <input id="nationality" type="text" name="nationality" placeholder="Type your nationality..." required>
+        </div>
+
+      </div>
+      <div class="column">
+        <p><label for="last_name">Last name(s)</label></p>
+        <input type="text" id="last_name" name="last_name" placeholder="Your last name..."required>
+        
+        <p><label for="bday">Date of birth</label></p>
+        <input name="bday" id="bday" type="date" required onchange="validateAge()"/>
+        <p id="age_error_msg" style="color:red"></p>
+        
+      </div>
+    </div>
+  </div>
+  <!--Third tab: Contact information-->
+  <div class="tab">
+    <h3>Your Contact Information</h3>
+    <div class="row">
+      <div class="column">
+        <p><label for="email">E-mail</label></p>
+        <input type="text" id="email" name="email" placeholder="Your e-mail address..." required onchange="ValidateEmail()">
+        <p id="email_error_msg" style="color:red"></p>
+
+        <p><label for="street">Street</label></p>
+        <input type="text" id="street" name="street" placeholder="Your street name..." required>
+
+        <p><label for="address_other">Complementary address information</label></p>
+        <input type="text" id="address_other" name="address_other" placeholder="Floor, door, other...">
+
+        <p><label for="zipcode">Zip Code</label></p>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Your zipcode..." required onchange="ValidateZipcode()">
+        <p id="zipcode_error_msg" style="color:red"></p>
+      </div>
+      <div class="column">
+        <p><label for="phone">Phone number</label></p>
+        <input type="text" id="phone" name="phone" placeholder="Your phone number..." required onchange="ValidatePhone()">
+        <p id="phone_error_msg" style="color:red"></p>
+  
+        <p><label for="street_no">Street Number</label></p>
+        <input type="text" id="street_no" name="street_no" placeholder="Your street number..." required onchange="ValidateStreetNo()">
+        <p id="street_no_error_msg" style="color:red"></p>
+
+        <p><label for="city">City</label></p>
+        <input type="text" id="city" name="city" placeholder="Your city..." required onchange="ValidateCity()">
+        <p id="city_error_msg" style="color:red"></p>
+
+        <p><label for="country">Country</label></p>
+        <div class="autocomplete" style="width:100%">
+          <input id="country" type="text" name="country" placeholder="Type country name..." required>
+        </div> <br>
+      </div>
+
+  </div>
+  </div>
+  
+<!--Fourth tab: Preferences -->
+<div class="tab">
+  <h3>Your Preferences</h3>
+  <p>Select the project focus that interests you</p>
+  <div id="preferences">
+    <button class="preference-button" value="Green living">Green Living</button>
+    <button class="preference-button" value="Agriculture">Agriculture</button>
+    <button class="preference-button" value="Renewable Energy">Renewables</button>
+    <button class="preference-button" value="High-tech">High-tech</button>
+    <button class="preference-button" value="Recycling">Recycling</button>
+  </div>
+  <p>Select the type of investments you are interested in</p>
+  <div id="preferences">
+    <button class="preference-button" value="100">Less than 100€</button>
+    <button class="preference-button" value="100-500">Between 100€-500€</button>
+    <button class="preference-button" value="500-1000">Between 500€-1'000€</button>
+    <button class="preference-button" value="+1000">More than 1'000€</button>
+  </div> <br> <br>
+  <div class="row">
+    <div class="column-tac">
+      <input id="checkbox" type="checkbox" class="tacbox" required>
+    </div>
+    <div class="column-tac">
+      <label for="checkbox">
+        I agree to <a href="#" id="termsLink">Eco-Equity's Terms and Conditions</a>.
+      </label>
+    </div>
+  </div>
+</div>
+  <!-- Registration confirmation message  -->
+  <div class="tab">
+    <br>
+    <h3 style="text-align: center;">Your profile has been created successfully!</h3>
+    <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
+    <div >
+      <button style="display: block; margin:0 auto;"><a href="index.html" style=" text-decoration: none; color: white;">Go back to main page</a></button><br>
+    </div>  
+    </div>
+  </div>
+
+    
+  <!-- "Previous" and "Next" buttons -->
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="submit" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+  <!-- Circles which indicate the steps/tabs of the form: -->
+  <div style="text-align:center;margin-top:5px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+
+  <div id="message">
+    <h4>Your password must contain the following:</h4>
+    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+    <p id="number" class="invalid">A <b>number</b></p>
+    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+  </div>
+</form>
+
+<script src="sign-up.js"></script>
+</body>
+</html>
