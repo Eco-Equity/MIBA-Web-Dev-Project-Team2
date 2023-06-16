@@ -1,7 +1,6 @@
 <?php
 // Call to the database connection
 include('db.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -207,7 +206,9 @@ button:hover {
       <div class="column">
         <p><label for="usrname">Username</label></p>
         <input type="text" id="usrname" name="usrname" placeholder="Choose your username..." required>
-        <?php echo $_SESSION['product_html']; ?>
+        <php? 
+          $_SESSION['usrname'] = $_POST["usrname"]; 
+        ?>
       </div>
       <div class="column">
         <br><br>
