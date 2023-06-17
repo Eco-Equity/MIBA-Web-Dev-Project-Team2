@@ -1,0 +1,89 @@
+/* --- Header --- */
+
+.header {
+  background-color: rgb(var(--white));
+  color: rgb(var(--black));
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.header .grid {
+  grid-template-columns: 1fr 2fr 5fr;
+  height: 100%;
+  align-items: center;
+}
+
+.header .flex {
+  justify-content: space-between;
+}
+
+.header-buttons.flex {
+  justify-content: right;
+}
+
+.header-buttons a {
+  margin-left: 50px;
+  font-size: 1.2rem;
+  color: rgb(var(--primary-green));
+  font-weight: 900;
+  background-color: rgb(var(--white));
+}
+
+.header-buttons .btn {
+  padding-right: 0;
+}
+
+.searchbar input {
+  width: 100%;
+  height: 80%;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border-color: rgb(var(--black));
+  padding: 10px;
+}
+
+/* User-Dashboard */
+
+#dashboard {
+  top: 70px;
+  height: calc(100vh - 70px);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard.container.grid {
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 100px;
+}
+
+.desc {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.assets {
+    background-color: rgba(var(--black), 0.7);
+    border-radius: 10px;
+}
+
+.assets h1 {
+    padding: 10px;
+    font-weight: 700;
+    color : rgb(var(--white));
+}
+
+.assets-header {
+  height: 50px;
+}
+
+.asset-items.grid{
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 10px;
+}
+
+.asset-items .flex {
+    font-size: 1.2rem;
+    color: rgb(var(--white));
+}
