@@ -48,7 +48,7 @@ if(mysqli_num_rows($result) == 1){
     $_SESSION['amount_html'] = $amount_html;
 
     // And also remember to change dashboard.html to dashboard.php
-    header('Location: http://localhost:8888/dashboard.php');
+    header('Location: dashboard.php');
     exit;
 } else {
     // set a message to display on login page

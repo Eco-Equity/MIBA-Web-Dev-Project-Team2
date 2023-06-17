@@ -3,7 +3,7 @@
 include('db.php');
 
 // Getting the data from the form
-$usrname = $_POST['usrname'];
+$username = $_POST['username'];
 $psw = $_POST['psw'];
 
 // Check for any connection errors
@@ -12,7 +12,9 @@ if ($conn->connect_error) {
 }
 
 // Check if username is already taken
-$query = "SELECT username FROM users WHERE username = '$usrname'";
+$query = "  SELECT username 
+            FROM customers 
+            WHERE username = '$username'";
 $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) > 0){

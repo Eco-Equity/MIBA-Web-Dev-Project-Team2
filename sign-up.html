@@ -201,11 +201,8 @@ button:hover {
     <h3>Your Eco-Equity Profile</h3>
     <div class="row">
       <div class="column">
-        <p><label for="usrname">Username</label></p>
-        <input type="text" id="usrname" name="usrname" placeholder="Choose your username..." required>
-        <php? 
-          $_SESSION['usrname'] = $_POST["usrname"]; 
-        ?>
+        <p><label for="username">Username</label></p>
+        <input type="text" id="username" name="username" placeholder="Choose your username..." required>
       </div>
       <div class="column">
       </div>
@@ -371,7 +368,7 @@ button:hover {
 
 <script>
   // Visualisation of different tabs
-  var currentTab = 0; // Current tab is set to be the first tab (0)
+  var currentTab = 0;  // Current tab is set to be the first tab (0)
   showTab(currentTab); // Display the current tab
 
   function showTab(n) {
@@ -402,7 +399,7 @@ button:hover {
   // If we are in the first tab, verify username/pwd
   if (n == 1 && currentTab === 0) {
     // Check username availability using AJAX
-    var username = document.getElementById("usrname").value;
+    var username = document.getElementById("username").value;
 
     // Perform an AJAX request to check availability
     var xhr = new XMLHttpRequest();
@@ -410,7 +407,7 @@ button:hover {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        var response = xhr.responseText;
+        var response = xhr.responseText.trim();
         // Process the response and take appropriate action
         if (response === "available") {
           // Username is available, proceed to the next tab
