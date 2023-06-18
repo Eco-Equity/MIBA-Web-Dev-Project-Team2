@@ -3,7 +3,7 @@
 include('db.php');
 
 // Getting the data from the form
-$usrname = $_POST['usrname'];
+$username = $_POST['username'];
 $psw = $_POST['psw'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
@@ -22,7 +22,7 @@ $preferences = $_POST['preferences'];
 
 // Add user to the database
 $query = "INSERT INTO users (username, password, first_name, last_name, gender, nationality, dob, email, street, additional_address_info, zipcode, phone, street_no, city, country, preferences) 
-VALUES ('$usrname', '$psw', '$first_name', '$last_name', '$gender', '$nationality', '$bday', '$email', '$street', '$address_other', '$zipcode', '$phone', '$street_no', '$city', '$country', '$preferences')";
+VALUES ('$username', '$psw', '$first_name', '$last_name', '$gender', '$nationality', '$bday', '$email', '$street', '$address_other', '$zipcode', '$phone', '$street_no', '$city', '$country', '$preferences')";
 
 $result = mysqli_query($conn, $query);
 
