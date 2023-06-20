@@ -201,8 +201,8 @@ body, html {
   .container-project {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 500px;
+    gap: 40px;
+    width: 1000px;
     margin: 0 auto;
 }
 
@@ -221,9 +221,10 @@ body, html {
 }
 
 .card-project h2 {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0;
+  padding-bottom: 20px;
 }
 
 .card-project p {
@@ -246,4 +247,20 @@ body, html {
   right: 16px;
   top: -20px;
   width: 40px;
+}
+
+.card-project-infos {
+  padding: 20px; /* Adjust as needed */
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 12px;
+}
+
+.info-table td {
+  border-bottom: 1px solid grey;
+  padding: 5px;
 }
