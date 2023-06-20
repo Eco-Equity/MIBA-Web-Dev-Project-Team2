@@ -197,4 +197,53 @@ body, html {
     color:rgba(var(--dark-green));
     text-decoration:none;
   }
-  
+
+  .container-project {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+  /*card-project*/
+.card-project {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.card-project > img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-project h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-project p {
+  font-size: 12px;
+  opacity: .7;
+  margin: 0;
+}
+
+
+.card-project .card-project-description {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.card-project-description .card-project-user {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+}
