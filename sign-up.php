@@ -20,9 +20,11 @@ $street_no = $_POST['street_no'];
 $city = $_POST['city'];
 $country = $_POST['country'];
 
+// change bday from dd-mm-yyyy to yyyy-mm-dd
+$bday = date("Y-m-d", strtotime($bday));
 
 // Add user to the database
-$query = "INSERT INTO users (firstname, lastname, username, gender, phone_number, street, street_number, compl_adr_info, city, zip_code, mail, DOB, 'password', nationality) 
+$query = "INSERT INTO customers (firstname, lastname, username, gender, phone_number, street, street_number, compl_adr_info, city, zip_code, mail, DOB, password, nationality) 
 VALUES ('$first_name', '$last_name', '$username', '$gender', '$phone', '$street', '$street_no', '$address_other', '$city', '$zipcode', '$email', '$bday', '$psw', '$nationality')";
 
 $result = mysqli_query($conn, $query);
