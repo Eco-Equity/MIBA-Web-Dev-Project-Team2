@@ -57,6 +57,10 @@
   color: rgb(var(--white));
 }
 
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
 .progress-container {
   width: 100%;
   height: 8px;
@@ -130,9 +134,24 @@
 }
 
 .info-text p {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 300;
   line-height: 1.2;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  align-items: center;
+}
+
+td {
+  width: 50%;
+  padding: 10px;
+  padding-left: 50px; 
+  padding-right: 50px; 
+  vertical-align: top;
+  text-align:left;
 }
 
 .info-image img {
