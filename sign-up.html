@@ -120,7 +120,6 @@ button:hover {
 .valid:before {
     position: relative;
     left: -35px;
-    content: "✔";
 }
 
 /* PWD: Add a red text color and an "x" when the requirements are wrong */
@@ -131,7 +130,6 @@ button:hover {
 .invalid:before {
     position: relative;
     left: -35px;
-    content: "✖";
 }
 
 /* Organization of inputs */
@@ -168,7 +166,7 @@ button:hover {
   transform: translateY(-50%);
   right: 10px;
   cursor: pointer;
-  color:#04AA6D
+  color:#04AA6D;
 }
 /* Format of button to indicate interests*/
 .preference-button {
@@ -185,6 +183,7 @@ button:hover {
 
 <form id="regForm" method="POST" action="http://localhost:8888/sign-up.php">
   <h1>Registration Form</h1>
+  <a href="index.html" style=" text-decoration: none; color: #04AA6D;;"><h4> << Quit and go back to main page</h4></a>
   
   <!--First tab: Profile Credentials-->
   <div class="tab">
