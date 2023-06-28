@@ -3,7 +3,7 @@
 include('db.php');
 
 // Getting the data from the form
-$usrname = $_POST['usrname'];
+$username = $_POST['username'];
 $psw = $_POST['psw'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
@@ -12,17 +12,20 @@ $nationality = $_POST['nationality'];
 $bday = $_POST['bday'];
 $email = $_POST['email'];
 $street = $_POST['street'];
+$street_no = $_POST['street_no'];
 $address_other = $_POST['address_other'];
 $zipcode = $_POST['zipcode'];
 $phone = $_POST['phone'];
 $street_no = $_POST['street_no'];
 $city = $_POST['city'];
 $country = $_POST['country'];
-$preferences = $_POST['preferences'];
+
+// change bday from dd-mm-yyyy to yyyy-mm-dd
+$bday = date("Y-m-d", strtotime($bday));
 
 // Add user to the database
-$query = "INSERT INTO users (username, password, first_name, last_name, gender, nationality, dob, email, street, additional_address_info, zipcode, phone, street_no, city, country, preferences) 
-VALUES ('$usrname', '$psw', '$first_name', '$last_name', '$gender', '$nationality', '$bday', '$email', '$street', '$address_other', '$zipcode', '$phone', '$street_no', '$city', '$country', '$preferences')";
+$query = "INSERT INTO customers (firstname, lastname, username, gender, phone_number, street, street_number, compl_adr_info, city, zip_code, mail, DOB, password, nationality) 
+VALUES ('$first_name', '$last_name', '$username', '$gender', '$phone', '$street', '$street_no', '$address_other', '$city', '$zipcode', '$email', '$bday', '$psw', '$nationality')";
 
 $result = mysqli_query($conn, $query);
 
@@ -33,5 +36,5 @@ if(!$result){
 }
 
 // User created successfully
-header('Location: welcome.html');
+header('Location: registration_confirmation.html');
 ?>

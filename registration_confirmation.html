@@ -1,0 +1,123 @@
+<?php
+// Call to the database connection
+include('db.php');
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+  
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: "Poppins", sans-serif;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #aaaaaa;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Define "Next" button format*/
+button {
+  background-color: rgb(127, 178, 134);
+  border-radius: 10px;
+  width: 150px;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+/* Make button change color when hovering */
+button:hover {
+  opacity: 0.8;
+}
+
+</style>
+<body>
+
+<form id="regForm">
+  <!-- Registration confirmation message  -->
+  <div class="tab">
+    <br>
+    <h3 style="text-align: center;">Your profile has been created successfully!</h3>
+    <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
+    <div >
+      <button style="display: block; margin:0 auto;"><a href="index.html" style=" text-decoration: none; color: white;">Go back to main page</a></button><br>
+    </div>  
+    </div>
+  </div>
+
+    
+  <!-- "Previous" and "Next" buttons -->
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+
+  
+</form>
+
+<script>
+  // Visualisation of different tabs
+  var currentTab = 0;  // Current tab is set to be the first tab (0)
+  showTab(currentTab); // Display the current tab
+
+  function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 2)) {
+      document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+      document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    if (n == (x.length - 1)) {
+      document.getElementById("prevBtn").style.display = "none";
+      document.getElementById("nextBtn").style.display = "none";
+    } 
+    //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
+  }
+</script>
+
+</body>
+</html>

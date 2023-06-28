@@ -1,19 +1,9 @@
-<?php
-// Call to the database connection
-include('db.php');
-
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 
-
-  <!--Next to do:
-  - Separate: style, script, body
-  - add link to php for user verification & form submission
-  - FIX PWD CONFIRMATION EYE SHOW/HIDE
-  */--> 
 
 <style>
 * {
@@ -130,7 +120,6 @@ button:hover {
 .valid:before {
     position: relative;
     left: -35px;
-    content: "✔";
 }
 
 /* PWD: Add a red text color and an "x" when the requirements are wrong */
@@ -141,7 +130,6 @@ button:hover {
 .invalid:before {
     position: relative;
     left: -35px;
-    content: "✖";
 }
 
 /* Organization of inputs */
@@ -178,7 +166,7 @@ button:hover {
   transform: translateY(-50%);
   right: 10px;
   cursor: pointer;
-  color:#04AA6D
+  color:#04AA6D;
 }
 /* Format of button to indicate interests*/
 .preference-button {
@@ -195,6 +183,7 @@ button:hover {
 
 <form id="regForm" method="POST" action="http://localhost:8888/sign-up.php">
   <h1>Registration Form</h1>
+  <a href="index.html" style=" text-decoration: none; color: #04AA6D;"><h4> << Quit and go back to main page</h4></a>
   
   <!--First tab: Profile Credentials-->
   <div class="tab">
@@ -238,9 +227,9 @@ button:hover {
         <p><label for="gender">Gender</label></p>
         <select id="gender" name="gender" required class="gender">
           <option disabled selected value="0">Select your gender...</option>
-          <option value="Female">Female</option>
-          <option value="Male">Male</option>
-          <option value="Other">Other</option>
+          <option value="f">Female</option>
+          <option value="m">Male</option>
+          <option value="o">Other</option>
         </select>
         
         <p><label for="nationality">Nationality</label></p>
@@ -314,10 +303,10 @@ button:hover {
   </div>
   <p>Select the type of investments you are interested in</p>
   <div id="preferences">
-    <button class="preference-button" value="100">Less than 100€</button>
-    <button class="preference-button" value="100-500">Between 100€-500€</button>
-    <button class="preference-button" value="500-1000">Between 500€-1'000€</button>
-    <button class="preference-button" value="+1000">More than 1'000€</button>
+    <button class="preference-button" value="100">Less than 100 EUR</button>
+    <button class="preference-button" value="100-500">Between 100-500 EUR</button>
+    <button class="preference-button" value="500-1000">Between 500-1'000 EUR</button>
+    <button class="preference-button" value="+1000">More than 1'000 EUR</button>
   </div> <br> <br>
   <div class="row">
     <div class="column-tac">
@@ -330,18 +319,7 @@ button:hover {
     </div>
   </div>
 </div>
-  <!-- Registration confirmation message  -->
-  <div class="tab">
-    <br>
-    <h3 style="text-align: center;">Your profile has been created successfully!</h3>
-    <p  style="text-align: center;">We have sent you an email to confirm your profile creation. </p> <br>
-    <div >
-      <button style="display: block; margin:0 auto;"><a href="index.html" style=" text-decoration: none; color: white;">Go back to main page</a></button><br>
-    </div>  
-    </div>
-  </div>
-
-    
+      
   <!-- "Previous" and "Next" buttons -->
   <div style="overflow:auto;">
     <div style="float:right;">
@@ -381,15 +359,12 @@ button:hover {
     } else {
       document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 2)) {
+    if (n == 3) {
       document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
       document.getElementById("nextBtn").innerHTML = "Next";
     }
-    if (n == (x.length - 1)) {
-      document.getElementById("prevBtn").style.display = "none";
-      document.getElementById("nextBtn").style.display = "none";
-    } 
+    
     //... and run a function that will display the correct step indicator:
     fixStepIndicator(n)
   }
@@ -403,7 +378,7 @@ button:hover {
 
     // Perform an AJAX request to check availability
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "username_availability.php", true);
+    xhr.open("POST", "http://localhost:8888/username_availability.php");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -411,7 +386,7 @@ button:hover {
         // Process the response and take appropriate action
         if (response === "available") {
           // Username is available, proceed to the next tab
-          goToNextTab();
+          goToNextTab(n);
         } else {
           // Username is already taken, show an error message or take appropriate action
           alert("Username is already taken. Please choose a different one.");
